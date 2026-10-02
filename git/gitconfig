@@ -1,0 +1,42 @@
+# Shared Git configuration.
+# Machine-specific identity and credential settings stay in ~/.gitconfig.
+
+[init]
+    defaultBranch = main
+
+[fetch]
+    prune = true
+
+[push]
+    autoSetupRemote = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[diff]
+    algorithm = histogram
+
+[rerere]
+    enabled = true
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[column]
+    ui = auto
+
+[alias]
+    st = status
+    co = checkout
+    sw = switch
+    ci = commit
+    amend = commit --amend --no-edit
+    unstage = restore --staged
+    last = log -1 HEAD --stat
+    lg = log --oneline --decorate --graph --all
+    today = log --since=midnight --oneline --decorate
+    gone = "!git fetch --prune && git branch -vv | awk '/: gone]/{print $1}'"
+

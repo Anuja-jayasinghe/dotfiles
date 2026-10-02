@@ -28,6 +28,14 @@ Collected on 2026-10-02. This is an inventory of candidates, not an instruction 
 | `~/Library/Application Support/Code/User/keybindings.json` | Not found | Add only if customized |
 | T3 Code state/configuration | Not found in checked locations | Defer to personal Windows machine |
 
+## Git work completed
+
+- Preserved the existing name, email, Git LFS filter, and macOS credential helper.
+- Added shared aliases and safe defaults under `git/gitconfig`.
+- Added a global ignore file under `git/ignore`.
+- Activated both files through the current local checkout.
+- The absolute local include path will be replaced with a portable chezmoi-managed arrangement later.
+
 ## Safe work-Mac tasks for today
 
 1. Inspect `.zshrc`, `.gitconfig`, and VS Code settings for portable preferences.
@@ -59,4 +67,3 @@ Collected on 2026-10-02. This is an inventory of candidates, not an instruction 
 - T3 databases, logs, attachments, or provider sessions
 - Large personal data directories
 - macOS settings that require administrator access or conflict with company management
-
