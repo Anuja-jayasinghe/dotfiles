@@ -26,7 +26,7 @@ See:
 
 ## Planned managed areas
 
-- Agents and shared `AGENTS.md` guidance
+- Agent guidance and personal skills under `agents/` (including shared `AGENTS.md` guidance)
 - Git and global Git ignore
 - Lazygit
 - T3 Code settings for the personal Windows machine

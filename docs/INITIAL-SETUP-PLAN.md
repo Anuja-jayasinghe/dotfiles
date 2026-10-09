@@ -9,7 +9,7 @@
 
 ## First-class areas
 
-- Agents: shared `AGENTS.md`, portable skills, and non-secret guidance
+- Agents: shared `AGENTS.md`, portable skills under `agents/skills/`, and non-secret guidance
 - Git: aliases, identities, global ignore, and optional commit signing
 - Lazygit: portable preferences and keybindings
 - T3 Code: primary personal-machine setup, with curated settings only
