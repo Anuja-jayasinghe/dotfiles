@@ -63,6 +63,11 @@ if (Get-Command code -ErrorAction SilentlyContinue) {
 }
 "vscode -> $vs"
 
+# T3 Code: copy tracked keybindings/themes if present in the repo
+$t3 = "$HOME\.t3\userdata"
+if (Test-Path "$root\t3code\keybindings.json") { New-Item -ItemType Directory -Force $t3 | Out-Null; Copy-Item "$root\t3code\keybindings.json" "$t3\keybindings.json" -Force; "t3 keybindings -> $t3" }
+if (Test-Path "$root\t3code\themes") { New-Item -ItemType Directory -Force "$t3\themes" | Out-Null; Copy-Item "$root\t3code\themes\*.json" "$t3\themes" -Force; "t3 themes -> $t3\themes" }
+
 # Agents: Claude Code reads ~/.claude/CLAUDE.md and ~/.claude/skills/. Skills are linked as junctions (no admin needed).
 $cl = "$HOME\.claude"
 New-Item -ItemType Directory -Force "$cl\skills" | Out-Null

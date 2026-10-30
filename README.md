@@ -26,7 +26,8 @@ Layout: `windows/` `macos/` `git/` `lazygit/` `vscode/` `ssh/` `agents/` `packag
 ## Status
 
 - Done: Windows terminal, PowerShell profile, Git, lazygit, VS Code, agent instructions + skills, SSH aliases, package lists, doctor, chezmoi hooks.
-- Not yet: T3 Code, wallpapers/Windows preferences, WSL, tmux, Mac-side verification.
+- Phase 4: T3 Code installed (`t3code/`), `windows/preferences.ps1` (dark mode, file extensions), `windows/wallpaper.ps1` + `assets/wallpapers/`, `windows/wsl-setup.ps1` (elevated, needs reboot). The preferences, wallpaper and WSL scripts are written but not run automatically.
+- Not yet: tracked T3 keybindings/themes, a wallpaper gallery, tmux, Mac-side verification.
 
 See:
 

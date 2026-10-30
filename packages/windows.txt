@@ -13,3 +13,4 @@ sharkdp.bat
 JesseDuffield.lazygit
 OpenJS.NodeJS.LTS
 Anthropic.ClaudeCode
+T3Tools.T3Code

@@ -12,6 +12,9 @@ foreach ($c in 'git','gh','pwsh','code','chezmoi','zoxide','oh-my-posh','fzf','r
     Check $c ([bool](Get-Command $c -ErrorAction SilentlyContinue)) 'windows\install.ps1'
 }
 
+Check 'T3 Code' ([bool](Get-ChildItem "$env:LOCALAPPDATA\Programs" -Directory -ErrorAction SilentlyContinue | Where-Object Name -match 'T3')) 'winget install T3Tools.T3Code'
+$null = wsl -l -q 2>&1; Check 'WSL installed (optional)' ($LASTEXITCODE -eq 0) 'windows\wsl-setup.ps1 -Install (elevated)'
+
 Write-Host "Config"
 $docs = [Environment]::GetFolderPath('MyDocuments')
 Check 'PowerShell 7 profile'   ((Test-Path "$docs\PowerShell\Microsoft.PowerShell_profile.ps1") -and (Get-Content "$docs\PowerShell\Microsoft.PowerShell_profile.ps1" -Raw) -match 'dotfiles') 'windows\install.ps1'
