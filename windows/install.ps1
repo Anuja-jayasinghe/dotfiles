@@ -49,9 +49,10 @@ if (-not (git config --global --get-all include.path | Select-String -SimpleMatc
 }
 
 # lazygit
-New-Item -ItemType Directory -Force "$env:APPDATA\lazygit" | Out-Null
-Copy-Item "$root\lazygit\config.yml" "$env:APPDATA\lazygit\config.yml" -Force
-"lazygit -> $env:APPDATA\lazygit"
+$lgDir = (lazygit --print-config-dir).Trim()   # %LOCALAPPDATA%\lazygit on Windows
+New-Item -ItemType Directory -Force $lgDir | Out-Null
+Copy-Item "$root\lazygit\config.yml" "$lgDir\config.yml" -Force
+"lazygit -> $lgDir"
 
 # VS Code settings (backed up once) and extensions
 $vs = "$env:APPDATA\Code\User\settings.json"
@@ -72,10 +73,7 @@ if (Test-Path "$root\t3code\themes") { New-Item -ItemType Directory -Force "$t3\
 $cl = "$HOME\.claude"
 New-Item -ItemType Directory -Force "$cl\skills" | Out-Null
 if (-not (Test-Path "$cl\CLAUDE.md")) { Set-Content "$cl\CLAUDE.md" "@$root\agents\AGENTS.md" -Encoding utf8; "agents -> $cl\CLAUDE.md" }
-Get-ChildItem "$root\agents\skills" -Directory | ForEach-Object {
-    $link = "$cl\skills\$($_.Name)"
-    if (-not (Test-Path $link)) { New-Item -ItemType Junction -Path $link -Target $_.FullName | Out-Null; "skill -> $link" }
-}
+# Skills in agents\skills are stored in the repo but deliberately not linked into ~\.claude\skills.
 
 # SSH aliases (never overwrites an existing config; no keys are managed here)
 New-Item -ItemType Directory -Force "$HOME\.ssh" | Out-Null

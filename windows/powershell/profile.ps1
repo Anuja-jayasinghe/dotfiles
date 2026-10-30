@@ -4,7 +4,7 @@
 if (Get-Module -ListAvailable PSReadLine) {
     Import-Module PSReadLine
     # Windows PowerShell 5.1 ships an old PSReadLine without predictions; ignore that there.
-    try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle ListView -ErrorAction Stop } catch {}
+    try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle InlineView -ErrorAction Stop } catch {}
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd -EditMode Windows
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
@@ -29,21 +29,6 @@ if ((Get-Command fzf -ErrorAction SilentlyContinue) -and (Get-Module -ListAvaila
 }
 
 # --- Aliases and helpers ---
-function ll { Get-ChildItem -Force @args }
-function .. { Set-Location .. }
-function ... { Set-Location ../.. }
-function mkcd($Path) { New-Item -ItemType Directory -Force $Path | Out-Null; Set-Location $Path }
-function gp { Set-Location C:\gitprojects }
-function dots { Set-Location C:\gitprojects\dotfiles }
-function which($Name) { (Get-Command $Name -ErrorAction SilentlyContinue).Source }
-Set-Alias g git
-Set-Alias lg lazygit
-Set-Alias cat bat -Option AllScope -ErrorAction SilentlyContinue
-function gs { git status -sb }
-function gl { git lg }
-function gc { git commit @args }
-function gco { git checkout @args }
-
 # Clone into C:\gitprojects: `clone user/repo` or `clone <url>`
 function clone($Repo) {
     $url = if ($Repo -match '^(https?://|git@)') { $Repo } else { "https://github.com/$Repo.git" }

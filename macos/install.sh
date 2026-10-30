@@ -22,9 +22,6 @@ mkdir -p "$lg_dir"; cp "$root/lazygit/config.yml" "$lg_dir/config.yml"
 # Agents
 mkdir -p "$HOME/.claude/skills"
 [ -e "$HOME/.claude/CLAUDE.md" ] || echo "@$root/agents/AGENTS.md" > "$HOME/.claude/CLAUDE.md"
-for s in "$root"/agents/skills/*/; do
-  n="$(basename "$s")"; [ -e "$HOME/.claude/skills/$n" ] || ln -s "${s%/}" "$HOME/.claude/skills/$n"
-done
 
 # SSH aliases (never overwrites)
 mkdir -p "$HOME/.ssh"; chmod 700 "$HOME/.ssh"

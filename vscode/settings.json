@@ -14,8 +14,10 @@
         }
     },
     "terminal.integrated.defaultProfile.windows": "PowerShell",
-    "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font",
-    "editor.fontFamily": "'CaskaydiaCove Nerd Font', Consolas, monospace",
+    "terminal.integrated.fontFamily": "BlexMono Nerd Font",
+    "terminal.integrated.fontWeight": "300",
+    "editor.fontFamily": "'BlexMono Nerd Font', Consolas, monospace",
+    "editor.fontWeight": "300",
     "editor.fontLigatures": true,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
@@ -23,8 +25,5 @@
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "git.autofetch": true,
-    "git.confirmSync": false,
-    "git.enableSmartCommit": true,
-    "explorer.confirmDelete": false,
     "workbench.startupEditor": "none"
 }

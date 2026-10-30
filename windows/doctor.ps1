@@ -19,13 +19,13 @@ Write-Host "Config"
 $docs = [Environment]::GetFolderPath('MyDocuments')
 Check 'PowerShell 7 profile'   ((Test-Path "$docs\PowerShell\Microsoft.PowerShell_profile.ps1") -and (Get-Content "$docs\PowerShell\Microsoft.PowerShell_profile.ps1" -Raw) -match 'dotfiles') 'windows\install.ps1'
 Check 'Windows Terminal settings match repo' ((Get-FileHash "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\windows\terminal\settings.json").Hash) 'windows\install.ps1 (or the repo copy is newer than the applied one)'
-Check 'lazygit config'         (Test-Path "$env:APPDATA\lazygit\config.yml")
+$lgDir = (lazygit --print-config-dir 2>$null)
+Check 'lazygit config matches repo' ($lgDir -and ((Get-FileHash "$($lgDir.Trim())\config.yml" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\lazygit\config.yml").Hash)) 'windows\install.ps1'
 Check 'VS Code settings match repo' ((Get-FileHash "$env:APPDATA\Code\User\settings.json" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\vscode\settings.json").Hash)
 Check 'Nerd Font'              ([bool](Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" -Filter 'CaskaydiaCove*' -ErrorAction SilentlyContinue)) 'oh-my-posh font install CascadiaCode'
 Check 'Git includes shared config' ([bool](git config --global --get-all include.path | Select-String -SimpleMatch 'dotfiles/git/gitconfig'))
 Check 'Git credential helper is not "store"' ((git config --get credential.helper) -ne 'store')
 Check 'Claude CLAUDE.md -> AGENTS.md' ((Test-Path "$HOME\.claude\CLAUDE.md") -and (Get-Content "$HOME\.claude\CLAUDE.md" -Raw) -match 'AGENTS.md')
-foreach ($s in Get-ChildItem "$root\agents\skills" -Directory) { Check "skill $($s.Name)" (Test-Path "$HOME\.claude\skills\$($s.Name)") }
 Check '~/.ssh/config'          (Test-Path "$HOME\.ssh\config")
 
 Write-Host "Accounts and keys (manual)"

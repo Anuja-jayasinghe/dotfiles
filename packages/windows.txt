@@ -9,8 +9,6 @@ ajeetdsouza.zoxide
 JanDeDobbeleer.OhMyPosh
 junegunn.fzf
 BurntSushi.ripgrep.MSVC
-sharkdp.bat
 JesseDuffield.lazygit
 OpenJS.NodeJS.LTS
 Anthropic.ClaudeCode
-T3Tools.T3Code

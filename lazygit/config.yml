@@ -2,12 +2,12 @@ gui:
   nerdFontsVersion: "3"
   showRandomTip: false
   showCommandLog: false
-  showBottomLine: false
+  showBottomLine: true
   expandFocusedSidePanel: true
   theme:
-    activeBorderColor: ["#7aa2f7", bold]
-    inactiveBorderColor: ["#414868"]
-    selectedLineBgColor: ["#33467c"]
+    activeBorderColor: ["#BD93F9", bold]
+    inactiveBorderColor: ["#6272A4"]
+    selectedLineBgColor: ["#44475A"]
 git:
   paging:
     colorArg: always

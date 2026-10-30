@@ -16,11 +16,9 @@ Open a new terminal tab afterwards. The script installs packages with winget, th
 | Command | Does |
 |---|---|
 | `z <part of folder>` | jump to a frequently used folder (zoxide) |
-| `Tab` | completion menu; the grey/list suggestions come from history, `Right Arrow` accepts |
+| `Tab` | completion menu; grey inline suggestions come from history, `Right Arrow` accepts |
+| `Up` / `Down` | history search by what you've typed |
 | `Ctrl+R` / `Ctrl+T` | fzf history / file search |
-| `gp`, `dots` | go to `C:\gitprojects` / the dotfiles repo |
 | `clone user/repo` | clone into `C:\gitprojects` and cd into it |
-| `g`, `gs`, `gl`, `lg` | git, status, log graph, lazygit |
-| `mkcd dir`, `ll`, `..` | make+enter dir, list all, up one |
 
 Editing the profile or theme in the repo takes effect in new shells; commit and push to keep it.
