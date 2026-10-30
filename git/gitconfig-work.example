@@ -1,0 +1,4 @@
+# Copy to ~/.gitconfig-work and fill in. Applied to repos under C:/gitprojects/work/.
+[user]
+    name = Your Name
+    email = you@work.example

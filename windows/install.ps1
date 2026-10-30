@@ -34,4 +34,41 @@ Copy-Item "$root\windows\terminal\settings.json" $ts -Force
 $mods = 'Install-Module PSFzf -Scope CurrentUser -Force -AcceptLicense -ErrorAction SilentlyContinue'
 $pw = Get-Command pwsh -ErrorAction SilentlyContinue
 if ($pw) { & $pw.Source -NoProfile -Command $mods } else { powershell -NoProfile -Command $mods }
+# Git: include the shared config once (identity + credential helper stay machine-local).
+$gc = "$HOME\.gitconfig"
+if (-not (git config --global --get-all include.path | Select-String -SimpleMatch 'dotfiles/git/gitconfig')) {
+    git config --global --add include.path "$($root -replace '\\','/')/git/gitconfig"
+    git config --global core.excludesfile "$($root -replace '\\','/')/git/ignore"
+    git config --global "includeIf.gitdir:C:/gitprojects/work/.path" "~/.gitconfig-work"
+    "git -> $gc"
+}
+
+# lazygit
+New-Item -ItemType Directory -Force "$env:APPDATA\lazygit" | Out-Null
+Copy-Item "$root\lazygit\config.yml" "$env:APPDATA\lazygit\config.yml" -Force
+"lazygit -> $env:APPDATA\lazygit"
+
+# VS Code settings (backed up once) and extensions
+$vs = "$env:APPDATA\Code\User\settings.json"
+if ((Test-Path $vs) -and -not (Test-Path "$vs.bak")) { Copy-Item $vs "$vs.bak" }
+New-Item -ItemType Directory -Force (Split-Path $vs) | Out-Null
+Copy-Item "$root\vscode\settings.json" $vs -Force
+if (Get-Command code -ErrorAction SilentlyContinue) {
+    Get-Content "$root\vscode\extensions.txt" | Where-Object { $_ -and $_ -notmatch '^#' } | ForEach-Object { code --install-extension $_ --force | Out-Null }
+}
+"vscode -> $vs"
+
+# Agents: Claude Code reads ~/.claude/CLAUDE.md and ~/.claude/skills/. Skills are linked as junctions (no admin needed).
+$cl = "$HOME\.claude"
+New-Item -ItemType Directory -Force "$cl\skills" | Out-Null
+if (-not (Test-Path "$cl\CLAUDE.md")) { Set-Content "$cl\CLAUDE.md" "@$root\agents\AGENTS.md" -Encoding utf8; "agents -> $cl\CLAUDE.md" }
+Get-ChildItem "$root\agents\skills" -Directory | ForEach-Object {
+    $link = "$cl\skills\$($_.Name)"
+    if (-not (Test-Path $link)) { New-Item -ItemType Junction -Path $link -Target $_.FullName | Out-Null; "skill -> $link" }
+}
+
+# SSH aliases (never overwrites an existing config; no keys are managed here)
+New-Item -ItemType Directory -Force "$HOME\.ssh" | Out-Null
+if (-not (Test-Path "$HOME\.ssh\config")) { Copy-Item "$root\ssh\config" "$HOME\.ssh\config"; "ssh -> $HOME\.ssh\config" }
+
 "Done. Open a new Windows Terminal tab."

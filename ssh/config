@@ -1,0 +1,17 @@
+# Aliases only. Private keys are never stored in this repo.
+# Generate a key on each machine: ssh-keygen -t ed25519 -C "you@example.com"  (use a passphrase)
+
+Host *
+    ServerAliveInterval 60
+    AddKeysToAgent yes
+    IdentitiesOnly yes
+
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+
+# Host home-server
+#     HostName 192.168.1.20
+#     User anuj
+#     IdentityFile ~/.ssh/id_ed25519

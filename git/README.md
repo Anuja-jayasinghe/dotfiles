@@ -28,6 +28,21 @@ The shared layer is currently included from the local checkout with:
 
 The global ignore file is also active from this checkout. This is intentionally a temporary work-Mac arrangement. Once chezmoi is configured, the include and target files will become portable across Windows, WSL, and macOS.
 
+## Windows activation
+
+`windows/install.ps1` adds to `~/.gitconfig` (identity and the `manager` credential helper stay machine-local):
+
+```text
+[include]
+    path = C:/gitprojects/dotfiles/git/gitconfig
+[core]
+    excludesfile = C:/gitprojects/dotfiles/git/ignore
+[includeIf "gitdir:C:/gitprojects/work/"]
+    path = ~/.gitconfig-work
+```
+
+Use `gitconfig-work.example` as the template for `~/.gitconfig-work`. Worktree aliases: `git wta <branch>` creates a sibling folder `<repo>-<branch>` on a new branch; `git wtl` / `git wtr <path>` list and remove.
+
 ## Work/personal identities
 
 The intended future design is:

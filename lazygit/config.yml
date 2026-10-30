@@ -1,0 +1,21 @@
+gui:
+  nerdFontsVersion: "3"
+  showRandomTip: false
+  showCommandLog: false
+  showBottomLine: false
+  expandFocusedSidePanel: true
+  theme:
+    activeBorderColor: ["#7aa2f7", bold]
+    inactiveBorderColor: ["#414868"]
+    selectedLineBgColor: ["#33467c"]
+git:
+  paging:
+    colorArg: always
+  commit:
+    signOff: false
+  autoFetch: true
+  autoRefresh: true
+os:
+  editPreset: vscode
+notARepository: skip
+confirmOnQuit: false

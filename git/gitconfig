@@ -38,5 +38,9 @@
     last = log -1 HEAD --stat
     lg = log --oneline --decorate --graph --all
     today = log --since=midnight --oneline --decorate
+    wt = worktree
+    wta = "!f() { git worktree add \"../$(basename \"$(git rev-parse --show-toplevel)\")-$1\" -b \"$1\"; }; f"
+    wtl = worktree list
+    wtr = worktree remove
     gone = "!git fetch --prune && git branch -vv | awk '/: gone]/{print $1}'"
 
