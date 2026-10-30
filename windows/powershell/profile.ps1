@@ -1,0 +1,52 @@
+# Shared PowerShell 7 profile. Loaded from $PROFILE (see windows/install.ps1).
+
+# --- Line editing: predictions, history search, Tab menu ---
+if (Get-Module -ListAvailable PSReadLine) {
+    Import-Module PSReadLine
+    Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle ListView
+    Set-PSReadLineOption -HistorySearchCursorMovesToEnd -EditMode Windows
+    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+}
+
+# --- Prompt ---
+$ompTheme = 'C:\gitprojects\dotfiles\windows\powershell\theme.omp.json'
+if ((Get-Command oh-my-posh -ErrorAction SilentlyContinue) -and (Test-Path $ompTheme)) {
+    oh-my-posh init pwsh --config $ompTheme | Invoke-Expression
+}
+
+# --- Fast navigation: z <partial name> jumps to frequent folders ---
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+}
+
+# --- fzf: Ctrl+R history, Ctrl+T files ---
+if ((Get-Command fzf -ErrorAction SilentlyContinue) -and (Get-Module -ListAvailable PSFzf)) {
+    Import-Module PSFzf
+    Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+}
+
+# --- Aliases and helpers ---
+function ll { Get-ChildItem -Force @args }
+function .. { Set-Location .. }
+function ... { Set-Location ../.. }
+function mkcd($Path) { New-Item -ItemType Directory -Force $Path | Out-Null; Set-Location $Path }
+function gp { Set-Location C:\gitprojects }
+function dots { Set-Location C:\gitprojects\dotfiles }
+function which($Name) { (Get-Command $Name -ErrorAction SilentlyContinue).Source }
+Set-Alias g git
+Set-Alias lg lazygit
+Set-Alias cat bat -Option AllScope -ErrorAction SilentlyContinue
+function gs { git status -sb }
+function gl { git lg }
+function gc { git commit @args }
+function gco { git checkout @args }
+
+# Clone into C:\gitprojects: `clone user/repo` or `clone <url>`
+function clone($Repo) {
+    $url = if ($Repo -match '^(https?://|git@)') { $Repo } else { "https://github.com/$Repo.git" }
+    $name = [IO.Path]::GetFileNameWithoutExtension($url.TrimEnd('/'))
+    git clone $url "C:\gitprojects\$name"
+    if ($?) { Set-Location "C:\gitprojects\$name" }
+}
