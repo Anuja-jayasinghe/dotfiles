@@ -1,0 +1,15 @@
+# Core tools, one winget id per line. Installed by windows/install.ps1.
+Git.Git
+GitHub.cli
+Microsoft.PowerShell
+Microsoft.WindowsTerminal
+Microsoft.VisualStudioCode
+twpayne.chezmoi
+ajeetdsouza.zoxide
+JanDeDobbeleer.OhMyPosh
+junegunn.fzf
+BurntSushi.ripgrep.MSVC
+sharkdp.bat
+JesseDuffield.lazygit
+OpenJS.NodeJS.LTS
+Anthropic.ClaudeCode

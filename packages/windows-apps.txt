@@ -1,0 +1,7 @@
+# Optional everyday apps. Installed only with: windows/install.ps1 -Apps
+Anthropic.Claude
+GitHub.GitHubDesktop
+VideoLAN.VLC
+CharlesMilette.TranslucentTB
+Google.GoogleDrive
+Valve.Steam

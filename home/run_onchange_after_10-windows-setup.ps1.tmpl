@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "windows" -}}
+# Re-runs when any of these repo files change (hashes below), applying the Windows setup.
+# install.ps1: {{ include "../windows/install.ps1" | sha256sum }}
+# profile:     {{ include "../windows/powershell/profile.ps1" | sha256sum }}
+# theme:       {{ include "../windows/powershell/theme.omp.json" | sha256sum }}
+# terminal:    {{ include "../windows/terminal/settings.json" | sha256sum }}
+# vscode:      {{ include "../vscode/settings.json" | sha256sum }}
+# lazygit:     {{ include "../lazygit/config.yml" | sha256sum }}
+# agents:      {{ include "../agents/AGENTS.md" | sha256sum }}
+& "{{ .chezmoi.workingTree }}\windows\install.ps1" -SkipPackages
+{{- end }}

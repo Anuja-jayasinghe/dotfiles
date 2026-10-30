@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+# Re-runs when these repo files change. UNTESTED on macOS: review before first apply.
+# macos/install.sh: {{ include "../macos/install.sh" | sha256sum }}
+# Brewfile:         {{ include "../packages/Brewfile" | sha256sum }}
+# lazygit:          {{ include "../lazygit/config.yml" | sha256sum }}
+# agents:           {{ include "../agents/AGENTS.md" | sha256sum }}
+bash "{{ .chezmoi.workingTree }}/macos/install.sh"
+{{- end }}

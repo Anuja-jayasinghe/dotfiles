@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "windows" }}
+.config
+.zshrc
+{{ else }}
+AppData
+{{ end }}

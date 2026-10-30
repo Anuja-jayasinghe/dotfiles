@@ -3,7 +3,8 @@
 # --- Line editing: predictions, history search, Tab menu ---
 if (Get-Module -ListAvailable PSReadLine) {
     Import-Module PSReadLine
-    Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle ListView
+    # Windows PowerShell 5.1 ships an old PSReadLine without predictions; ignore that there.
+    try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle ListView -ErrorAction Stop } catch {}
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd -EditMode Windows
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward

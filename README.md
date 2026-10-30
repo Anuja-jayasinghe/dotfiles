@@ -7,9 +7,26 @@ Personal configuration for:
 - Work macOS computer
 - Future Linux machines, where practical
 
-## Current status
+## Quick start
 
-This repository starts from the work Mac. The first pass will capture portable configuration only. Personal Windows and T3 Code configuration will be added later from the personal machine.
+**Windows (main machine)** — repo lives in `C:\gitprojects\dotfiles`:
+
+```powershell
+git clone https://github.com/Anuja-jayasinghe/dotfiles.git C:\gitprojects\dotfiles
+C:\gitprojects\dotfiles\windows\install.ps1          # add -Apps for optional apps, -SkipPackages to skip winget
+C:\gitprojects\dotfiles\windows\doctor.ps1           # what is applied / missing
+```
+
+`chezmoi` is wired to the repo (`.chezmoiroot` → `home/`, `~/.config/chezmoi/chezmoi.toml` sets `sourceDir`). After editing files in the repo, `chezmoi diff` then `chezmoi apply` re-runs the installer when the files it depends on change. Details in [windows/README.md](windows/README.md).
+
+**macOS / Linux** — `packages/Brewfile` + `macos/install.sh` (untested on a Mac; read it first).
+
+Layout: `windows/` `macos/` `git/` `lazygit/` `vscode/` `ssh/` `agents/` `packages/` `home/` (chezmoi hooks).
+
+## Status
+
+- Done: Windows terminal, PowerShell profile, Git, lazygit, VS Code, agent instructions + skills, SSH aliases, package lists, doctor, chezmoi hooks.
+- Not yet: T3 Code, wallpapers/Windows preferences, WSL, tmux, Mac-side verification.
 
 See:
 

@@ -1,15 +1,20 @@
 # Applies the Windows terminal setup. Safe to re-run. Works from Windows PowerShell 5.1 or pwsh.
 # Usage: .\windows\install.ps1   (use -SkipPackages to skip winget)
-param([switch]$SkipPackages)
+param([switch]$SkipPackages, [switch]$Apps)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 
 if (-not $SkipPackages) {
-    $ids = 'Microsoft.PowerShell','twpayne.chezmoi','ajeetdsouza.zoxide','JanDeDobbeleer.OhMyPosh',
-           'junegunn.fzf','BurntSushi.ripgrep.MSVC','sharkdp.bat','JesseDuffield.lazygit','Git.Git','GitHub.cli'
+    # packages/windows.txt = core tools; -Apps adds packages/windows-apps.txt. Already-installed ids are skipped by winget.
+    $lists = @('windows.txt'); if ($Apps) { $lists += 'windows-apps.txt' }
+    $ids = $lists | ForEach-Object { Get-Content "$root\packages\$_" } | Where-Object { $_ -and $_ -notmatch '^\s*#' }
     foreach ($id in $ids) {
-        winget install --id $id --exact --source winget --silent --accept-package-agreements --accept-source-agreements
+        winget list --id $id --exact --source winget *> $null
+        if ($LASTEXITCODE -ne 0) {
+            winget install --id $id --exact --source winget --silent --accept-package-agreements --accept-source-agreements
+        }
     }
+    $env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')
     if (-not (Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" -Filter 'CaskaydiaCove*' -ErrorAction SilentlyContinue)) {
         oh-my-posh font install CascadiaCode
     }
