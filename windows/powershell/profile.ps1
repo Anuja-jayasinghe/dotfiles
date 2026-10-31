@@ -23,7 +23,9 @@ if ((Get-Command oh-my-posh -ErrorAction SilentlyContinue) -and (Test-Path $ompT
 
 # --- Fast navigation: z <partial name> jumps to frequent folders ---
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+    # --cmd cd makes plain `cd` smart: `cd movies` jumps to the best-matching folder you've been in, from anywhere.
+    # Real paths still win (`cd ..`, `cd C:\x`, `cd .\sub`), and `cd -` goes back.
+    Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
 }
 
 # --- fzf: Ctrl+R history, Ctrl+T files ---
