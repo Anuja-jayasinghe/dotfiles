@@ -44,7 +44,6 @@ $gc = "$HOME\.gitconfig"
 if (-not (git config --global --get-all include.path | Select-String -SimpleMatch 'dotfiles/git/gitconfig')) {
     git config --global --add include.path "$($root -replace '\\','/')/git/gitconfig"
     git config --global core.excludesfile "$($root -replace '\\','/')/git/ignore"
-    git config --global "includeIf.gitdir:C:/gitprojects/work/.path" "~/.gitconfig-work"
     "git -> $gc"
 }
 

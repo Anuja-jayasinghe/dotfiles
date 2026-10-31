@@ -12,7 +12,6 @@ fi
 if ! git config --global --get-all include.path | grep -q 'dotfiles/git/gitconfig'; then
   git config --global --add include.path "$root/git/gitconfig"
   git config --global core.excludesfile "$root/git/ignore"
-  git config --global "includeIf.gitdir:~/gitprojects/work/.path" "~/.gitconfig-work"
 fi
 
 # lazygit (macOS reads ~/Library/Application Support/lazygit; XDG-style works with LG_CONFIG_FILE or ~/.config on Linux)
