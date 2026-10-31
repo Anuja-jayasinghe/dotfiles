@@ -37,21 +37,10 @@ The global ignore file is also active from this checkout. This is intentionally 
     path = C:/gitprojects/dotfiles/git/gitconfig
 [core]
     excludesfile = C:/gitprojects/dotfiles/git/ignore
-[includeIf "gitdir:C:/gitprojects/work/"]
-    path = ~/.gitconfig-work
 ```
 
-Use `gitconfig-work.example` as the template for `~/.gitconfig-work`. Worktree aliases: `git wta <branch>` creates a sibling folder `<repo>-<branch>` on a new branch; `git wtl` / `git wtr <path>` list and remove.
+Worktree aliases: `git wta <branch>` creates a sibling folder `<repo>-<branch>` on a new branch; `git wtl` / `git wtr <path>` list and remove.
 
-## Work/personal identities
+## Identity
 
-The intended future design is:
-
-```text
-shared Git settings
-├── personal identity on the Windows machine
-├── work identity on the Mac
-└── optional directory-based includes for work repositories
-```
-
-Do not put a work email into the shared configuration before the identity strategy is finalized.
+One name and email is used for everything, work and personal. It lives in `~/.gitconfig` and is not tracked here. If a separate work identity is ever needed, add an `includeIf "gitdir:..."` rule that points at a work config file.
