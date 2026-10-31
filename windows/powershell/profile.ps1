@@ -8,8 +8,19 @@ if (Get-Module -ListAvailable PSReadLine) {
     # The default suggestion colour is almost black; use the terminal's bright black (Dracula #6272A4) so it is readable.
     try { Set-PSReadLineOption -Colors @{ InlineView = "$([char]27)[90m" } -ErrorAction Stop } catch {}
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd -EditMode Windows
-    # Tab fills in the first match; pressing Tab again cycles to the next one (Shift+Tab goes back).
-    Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
+    # Tab accepts the grey history suggestion if there is one; otherwise it fills in the first completion
+    # and pressing Tab again cycles to the next one (Shift+Tab goes back).
+    Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
+        $line = $null; $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+        if ($line.Length -gt 0 -and $cursor -eq $line.Length) {
+            [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion()
+            $after = $null
+            [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$after, [ref]$cursor)
+            if ($after -ne $line) { return }
+        }
+        [Microsoft.PowerShell.PSConsoleReadLine]::TabCompleteNext()
+    }
     Set-PSReadLineKeyHandler -Key Shift+Tab -Function TabCompletePrevious
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
