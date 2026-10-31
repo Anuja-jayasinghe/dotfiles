@@ -7,6 +7,7 @@ A growing collection. Drop new images here (JPG/PNG, 1920x1080 or larger) and co
 | `vladstudio_sabaduri_forest_1920x1080.jpg` | Vlad Gerasimov (vladstudio.com) |
 
 ```powershell
-.\windows\wallpaper.ps1 -Name vladstudio_sabaduri_forest_1920x1080.jpg   # a specific one
-.\windows\wallpaper.ps1 -Random                                          # pick any from the collection
+# from C:\gitprojects\toolnest
+just wallpaper -Name vladstudio_sabaduri_forest_1920x1080.jpg   # a specific one
+just wallpaper -Random                                          # pick any from the collection
 ```
