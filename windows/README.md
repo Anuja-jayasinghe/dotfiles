@@ -15,8 +15,8 @@ Open a new terminal tab afterwards. The script installs packages with winget, th
 
 | Command | Does |
 |---|---|
-| `z <part of folder>` | jump to a frequently used folder (zoxide) |
-| `Tab` | completion menu; grey inline suggestions come from history, `Right Arrow` accepts |
+| `cd <part of folder>` | jump to the best-matching folder you've been in, from anywhere (zoxide; `z` does the same) |
+| `Tab` / `Shift+Tab` | fill in the first match, press again to cycle forward / back; grey inline suggestions come from history, `Right Arrow` accepts |
 | `Up` / `Down` | history search by what you've typed |
 | `Ctrl+R` / `Ctrl+T` | fzf history / file search |
 | `clone user/repo` | clone into `C:\gitprojects` and cd into it |

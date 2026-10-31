@@ -5,8 +5,23 @@ if (Get-Module -ListAvailable PSReadLine) {
     Import-Module PSReadLine
     # Windows PowerShell 5.1 ships an old PSReadLine without predictions; ignore that there.
     try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle InlineView -ErrorAction Stop } catch {}
+    # The default suggestion colour is almost black; use the terminal's bright black (Dracula #6272A4) so it is readable.
+    try { Set-PSReadLineOption -Colors @{ InlineView = "$([char]27)[90m" } -ErrorAction Stop } catch {}
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd -EditMode Windows
-    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    # Tab accepts the grey history suggestion if there is one; otherwise it fills in the first completion
+    # and pressing Tab again cycles to the next one (Shift+Tab goes back).
+    Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
+        $line = $null; $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+        if ($line.Length -gt 0 -and $cursor -eq $line.Length) {
+            [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion()
+            $after = $null
+            [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$after, [ref]$cursor)
+            if ($after -ne $line) { return }
+        }
+        [Microsoft.PowerShell.PSConsoleReadLine]::TabCompleteNext()
+    }
+    Set-PSReadLineKeyHandler -Key Shift+Tab -Function TabCompletePrevious
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 }
@@ -19,7 +34,9 @@ if ((Get-Command oh-my-posh -ErrorAction SilentlyContinue) -and (Test-Path $ompT
 
 # --- Fast navigation: z <partial name> jumps to frequent folders ---
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+    # --cmd cd makes plain `cd` smart: `cd movies` jumps to the best-matching folder you've been in, from anywhere.
+    # Real paths still win (`cd ..`, `cd C:\x`, `cd .\sub`), and `cd -` goes back.
+    Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
 }
 
 # --- fzf: Ctrl+R history, Ctrl+T files ---
