@@ -5,8 +5,12 @@ if (Get-Module -ListAvailable PSReadLine) {
     Import-Module PSReadLine
     # Windows PowerShell 5.1 ships an old PSReadLine without predictions; ignore that there.
     try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle InlineView -ErrorAction Stop } catch {}
+    # The default suggestion colour is almost black; use the terminal's bright black (Dracula #6272A4) so it is readable.
+    try { Set-PSReadLineOption -Colors @{ InlineView = "$([char]27)[90m" } -ErrorAction Stop } catch {}
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd -EditMode Windows
-    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    # Tab fills in the first match; pressing Tab again cycles to the next one (Shift+Tab goes back).
+    Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
+    Set-PSReadLineKeyHandler -Key Shift+Tab -Function TabCompletePrevious
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 }
