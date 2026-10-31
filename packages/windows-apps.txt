@@ -5,3 +5,6 @@ VideoLAN.VLC
 CharlesMilette.TranslucentTB
 Google.GoogleDrive
 Valve.Steam
+Google.Chrome
+Spotify.Spotify
+RARLab.WinRAR
