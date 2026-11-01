@@ -87,6 +87,15 @@ $cx = "$HOME\.codex\AGENTS.md"
 if ((Test-Path $cx) -and (Get-FileHash $cx).Hash -ne (Get-FileHash "$root\agents\AGENTS.md").Hash -and -not (Test-Path "$cx.bak")) { Copy-Item $cx "$cx.bak" }
 Copy-Item "$root\agents\AGENTS.md" $cx -Force; "agents -> $cx"
 
+# AutoHotkey hotkeys (Win+K Bluetooth picker): a Startup shortcut runs the script at login, then it is started now.
+$lnk = Join-Path ([Environment]::GetFolderPath('Startup')) 'hotkeys.lnk'
+$ws = New-Object -ComObject WScript.Shell
+$sc = $ws.CreateShortcut($lnk); $sc.TargetPath = "$root\autohotkey\hotkeys.ahk"; $sc.WorkingDirectory = "$root\autohotkey"; $sc.Save()
+"hotkeys -> $lnk"
+if (-not (Get-CimInstance Win32_Process -Filter "Name like 'AutoHotkey%'" | Where-Object CommandLine -match 'hotkeys\.ahk')) {
+    Start-Process "$root\autohotkey\hotkeys.ahk" -ErrorAction SilentlyContinue
+}
+
 # SSH aliases (never overwrites an existing config; no keys are managed here)
 New-Item -ItemType Directory -Force "$HOME\.ssh" | Out-Null
 if (-not (Test-Path "$HOME\.ssh\config")) { Copy-Item "$root\ssh\config" "$HOME\.ssh\config"; "ssh -> $HOME\.ssh\config" }

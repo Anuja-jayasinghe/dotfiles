@@ -13,3 +13,5 @@ JesseDuffield.lazygit
 OpenJS.NodeJS.LTS
 Anthropic.ClaudeCode
 Casey.Just
+AutoHotkey.AutoHotkey
+Python.Python.3.14

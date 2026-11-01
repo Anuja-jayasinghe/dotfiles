@@ -31,7 +31,7 @@ C:\gitprojects\dotfiles\windows\bootstrap.ps1
 
 One folder per tool, so any single config can be shared as a link to its folder or file (for example `terminal/settings.json`) without the rest of the repo. Each folder has a short README on how to use it.
 
-`terminal/` `powershell/` `vscode/` `lazygit/` `git/` `ssh/` `agents/` — configs. `packages/` — what gets installed. `windows/` `macos/` — setup scripts (bootstrap, install, doctor). `assets/` — wallpapers. `home/` — chezmoi hooks. Utility scripts live in the toolnest repo, not here.
+`terminal/` `powershell/` `autohotkey/` `vscode/` `lazygit/` `git/` `ssh/` `agents/` — configs. `packages/` — what gets installed. `windows/` `macos/` — setup scripts (bootstrap, install, doctor). `assets/` — wallpapers. `home/` — chezmoi hooks. Utility scripts live in the toolnest repo, not here.
 
 ## Status
 
