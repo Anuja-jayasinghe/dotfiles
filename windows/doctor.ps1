@@ -31,7 +31,8 @@ Check 'Git includes shared config' ([bool](git config --global --get-all include
 Check 'Git credential helper is not "store"' ((git config --get credential.helper) -ne 'store')
 Check 'Claude CLAUDE.md -> AGENTS.md' ((Test-Path "$HOME\.claude\CLAUDE.md") -and (Get-Content "$HOME\.claude\CLAUDE.md" -Raw) -match 'AGENTS.md')
 Check 'Codex AGENTS.md matches repo' ((Get-FileHash "$HOME\.codex\AGENTS.md" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\agents\AGENTS.md").Hash) 'windows\install.ps1'
-Check '~/.ssh/config'          (Test-Path "$HOME\.ssh\config")
+Check 'Hotkeys start at login (AutoHotkey)' (Test-Path (Join-Path ([Environment]::GetFolderPath('Startup')) 'hotkeys.lnk')) 'windows\install.ps1'
+Check '~/.ssh/config'         (Test-Path "$HOME\.ssh\config")
 
 Write-Host "Accounts and keys (manual)"
 gh auth status *> $null; Check 'gh logged in' ($LASTEXITCODE -eq 0) 'gh auth login'
