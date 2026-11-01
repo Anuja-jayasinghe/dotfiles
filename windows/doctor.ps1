@@ -8,17 +8,21 @@ function Check($label, [bool]$ok, $hint = '') {
 }
 
 Write-Host "Commands"
-foreach ($c in 'git','gh','pwsh','code','chezmoi','zoxide','oh-my-posh','fzf','rg','bat','lazygit','node') {
+foreach ($c in 'git','gh','pwsh','code','chezmoi','zoxide','oh-my-posh','fzf','rg','bat','lazygit','node','just') {
     Check $c ([bool](Get-Command $c -ErrorAction SilentlyContinue)) 'windows\install.ps1'
 }
 
+Write-Host "Projects folder"
+Check 'GITPROJECTS points at the parent of this repo' ([Environment]::GetEnvironmentVariable('GITPROJECTS','User') -eq (Split-Path $root -Parent)) 'windows\install.ps1'
+Check 'toolnest cloned next to dotfiles' (Test-Path "$(Split-Path $root -Parent)\toolnest\justfile") 'git clone https://github.com/Anuja-jayasinghe/toolnest.git'
+
 Check 'T3 Code' ([bool](Get-ChildItem "$env:LOCALAPPDATA\Programs" -Directory -ErrorAction SilentlyContinue | Where-Object Name -match 'T3')) 'winget install T3Tools.T3Code'
-$null = wsl -l -q 2>&1; Check 'WSL installed (optional)' ($LASTEXITCODE -eq 0) 'windows\wsl-setup.ps1 -Install (elevated)'
+$null = wsl -l -q 2>&1; Check 'WSL installed (optional)' ($LASTEXITCODE -eq 0) 'just wsl-setup -Install (in toolnest, elevated)'
 
 Write-Host "Config"
 $docs = [Environment]::GetFolderPath('MyDocuments')
 Check 'PowerShell 7 profile'   ((Test-Path "$docs\PowerShell\Microsoft.PowerShell_profile.ps1") -and (Get-Content "$docs\PowerShell\Microsoft.PowerShell_profile.ps1" -Raw) -match 'dotfiles') 'windows\install.ps1'
-Check 'Windows Terminal settings match repo' ((Get-FileHash "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\windows\terminal\settings.json").Hash) 'windows\install.ps1 (or the repo copy is newer than the applied one)'
+Check 'Windows Terminal settings match repo' ((Get-FileHash "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\terminal\settings.json").Hash) 'windows\install.ps1 (or the repo copy is newer than the applied one)'
 $lgDir = (lazygit --print-config-dir 2>$null)
 Check 'lazygit config matches repo' ($lgDir -and ((Get-FileHash "$($lgDir.Trim())\config.yml" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\lazygit\config.yml").Hash)) 'windows\install.ps1'
 Check 'VS Code settings match repo' ((Get-FileHash "$env:APPDATA\Code\User\settings.json" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\vscode\settings.json").Hash)

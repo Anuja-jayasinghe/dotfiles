@@ -4,6 +4,13 @@ param([switch]$SkipPackages, [switch]$Apps)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 
+# The projects folder is wherever this repo's parent is (C:\gitprojects). Tools like `clone` read it from GITPROJECTS.
+$projects = Split-Path $root -Parent
+if ([Environment]::GetEnvironmentVariable('GITPROJECTS', 'User') -ne $projects) {
+    [Environment]::SetEnvironmentVariable('GITPROJECTS', $projects, 'User')
+    "GITPROJECTS -> $projects"
+}
+
 if (-not $SkipPackages) {
     # packages/windows.txt = core tools; -Apps adds packages/windows-apps.txt. Already-installed ids are skipped by winget.
     $lists = @('windows.txt'); if ($Apps) { $lists += 'windows-apps.txt' }
@@ -21,7 +28,7 @@ if (-not $SkipPackages) {
 }
 
 # Profiles for PowerShell 7 and 5.1 just dot-source the one in this repo.
-$stub = ". '$root\windows\powershell\profile.ps1'"
+$stub = ". '$root\powershell\profile.ps1'"
 $docs = [Environment]::GetFolderPath('MyDocuments')
 foreach ($p in "$docs\PowerShell\Microsoft.PowerShell_profile.ps1", "$docs\WindowsPowerShell\Microsoft.PowerShell_profile.ps1") {
     New-Item -ItemType Directory -Force (Split-Path $p) | Out-Null
@@ -32,7 +39,7 @@ foreach ($p in "$docs\PowerShell\Microsoft.PowerShell_profile.ps1", "$docs\Windo
 # Windows Terminal settings (previous file is backed up once).
 $ts = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 if ((Test-Path $ts) -and -not (Test-Path "$ts.bak")) { Copy-Item $ts "$ts.bak" }
-Copy-Item "$root\windows\terminal\settings.json" $ts -Force
+Copy-Item "$root\terminal\settings.json" $ts -Force
 "terminal -> $ts"
 
 # PowerShell modules (run in pwsh if available).
