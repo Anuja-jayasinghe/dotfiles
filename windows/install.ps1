@@ -74,6 +74,12 @@ New-Item -ItemType Directory -Force "$cl\skills" | Out-Null
 if (-not (Test-Path "$cl\CLAUDE.md")) { Set-Content "$cl\CLAUDE.md" "@$root\agents\AGENTS.md" -Encoding utf8; "agents -> $cl\CLAUDE.md" }
 # Skills in agents\skills are stored in the repo but deliberately not linked into ~\.claude\skills.
 
+# Codex reads ~/.codex/AGENTS.md (it has no @-import like Claude), so the shared file is copied; the repo copy is the master.
+New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
+$cx = "$HOME\.codex\AGENTS.md"
+if ((Test-Path $cx) -and (Get-FileHash $cx).Hash -ne (Get-FileHash "$root\agents\AGENTS.md").Hash -and -not (Test-Path "$cx.bak")) { Copy-Item $cx "$cx.bak" }
+Copy-Item "$root\agents\AGENTS.md" $cx -Force; "agents -> $cx"
+
 # SSH aliases (never overwrites an existing config; no keys are managed here)
 New-Item -ItemType Directory -Force "$HOME\.ssh" | Out-Null
 if (-not (Test-Path "$HOME\.ssh\config")) { Copy-Item "$root\ssh\config" "$HOME\.ssh\config"; "ssh -> $HOME\.ssh\config" }

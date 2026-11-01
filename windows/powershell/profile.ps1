@@ -27,7 +27,7 @@ if (Get-Module -ListAvailable PSReadLine) {
 }
 
 # --- Prompt ---
-$ompTheme = 'C:\gitprojects\dotfiles\windows\powershell\theme.omp.json'
+$ompTheme = Join-Path $PSScriptRoot 'theme.omp.json'
 if ((Get-Command oh-my-posh -ErrorAction SilentlyContinue) -and (Test-Path $ompTheme)) {
     oh-my-posh init pwsh --config $ompTheme | Invoke-Expression
 }
@@ -46,10 +46,12 @@ if ((Get-Command fzf -ErrorAction SilentlyContinue) -and (Get-Module -ListAvaila
 }
 
 # --- Aliases and helpers ---
-# Clone into C:\gitprojects: `clone user/repo` or `clone <url>`
+# Clone into your projects folder (default C:\gitprojects, override with $env:GITPROJECTS):
+# `clone user/repo` or `clone <url>`
 function clone($Repo) {
+    $base = if ($env:GITPROJECTS) { $env:GITPROJECTS } else { 'C:\gitprojects' }
     $url = if ($Repo -match '^(https?://|git@)') { $Repo } else { "https://github.com/$Repo.git" }
     $name = [IO.Path]::GetFileNameWithoutExtension($url.TrimEnd('/'))
-    git clone $url "C:\gitprojects\$name"
-    if ($?) { Set-Location "C:\gitprojects\$name" }
+    git clone $url "$base\$name"
+    if ($?) { Set-Location "$base\$name" }
 }

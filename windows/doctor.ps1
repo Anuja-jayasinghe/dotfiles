@@ -26,6 +26,7 @@ Check 'Nerd Font'              ([bool](Get-ChildItem "$env:LOCALAPPDATA\Microsof
 Check 'Git includes shared config' ([bool](git config --global --get-all include.path | Select-String -SimpleMatch 'dotfiles/git/gitconfig'))
 Check 'Git credential helper is not "store"' ((git config --get credential.helper) -ne 'store')
 Check 'Claude CLAUDE.md -> AGENTS.md' ((Test-Path "$HOME\.claude\CLAUDE.md") -and (Get-Content "$HOME\.claude\CLAUDE.md" -Raw) -match 'AGENTS.md')
+Check 'Codex AGENTS.md matches repo' ((Get-FileHash "$HOME\.codex\AGENTS.md" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\agents\AGENTS.md").Hash) 'windows\install.ps1'
 Check '~/.ssh/config'          (Test-Path "$HOME\.ssh\config")
 
 Write-Host "Accounts and keys (manual)"
