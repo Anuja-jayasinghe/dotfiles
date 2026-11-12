@@ -15,3 +15,4 @@ Anthropic.ClaudeCode
 Casey.Just
 AutoHotkey.AutoHotkey
 Python.Python.3.14
+Bitwarden.Bitwarden

@@ -96,6 +96,14 @@ if (-not (Get-CimInstance Win32_Process -Filter "Name like 'AutoHotkey%'" | Wher
     Start-Process "$root\autohotkey\hotkeys.ahk" -ErrorAction SilentlyContinue
 }
 
+# Bitwarden Chrome extension: Chrome only installs Web Store extensions with a click, so open its page if no profile has it.
+$bwExt = 'nngceckbapebfimnlniiiahkandclblb'
+$chrome = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+if ((Test-Path $chrome) -and -not (Get-ChildItem "$env:LOCALAPPDATA\Google\Chrome\User Data\*\Extensions\$bwExt" -Directory -ErrorAction SilentlyContinue)) {
+    Start-Process $chrome "https://chromewebstore.google.com/detail/$bwExt"
+    "bitwarden -> opened the Chrome extension page; click Add to Chrome (then see bitwarden\README.md)"
+}
+
 # SSH aliases (never overwrites an existing config; no keys are managed here)
 New-Item -ItemType Directory -Force "$HOME\.ssh" | Out-Null
 if (-not (Test-Path "$HOME\.ssh\config")) { Copy-Item "$root\ssh\config" "$HOME\.ssh\config"; "ssh -> $HOME\.ssh\config" }
