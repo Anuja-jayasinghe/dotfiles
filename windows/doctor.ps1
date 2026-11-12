@@ -19,6 +19,13 @@ Check 'toolnest cloned next to dotfiles' (Test-Path "$(Split-Path $root -Parent)
 Check 'T3 Code' ([bool](Get-ChildItem "$env:LOCALAPPDATA\Programs" -Directory -ErrorAction SilentlyContinue | Where-Object Name -match 'T3')) 'winget install T3Tools.T3Code'
 $null = wsl -l -q 2>&1; Check 'WSL installed (optional)' ($LASTEXITCODE -eq 0) 'just wsl-setup -Install (in toolnest, elevated)'
 
+Write-Host "Remote access (optional, set up by: just remote-access in toolnest)"
+$ra = 'just remote-access (in toolnest)'
+Check 'Tailscale running' ((Get-Service Tailscale -ErrorAction SilentlyContinue).Status -eq 'Running') $ra
+Check 'Remote Desktop on' ((Get-ItemProperty 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -ErrorAction SilentlyContinue).fDenyTSConnections -eq 0) $ra
+Check 'SSH server running' ((Get-Service sshd -ErrorAction SilentlyContinue).Status -eq 'Running') $ra
+Check 'RustDesk running' ((Get-Service RustDesk -ErrorAction SilentlyContinue).Status -eq 'Running') $ra
+
 Write-Host "Config"
 $docs = [Environment]::GetFolderPath('MyDocuments')
 Check 'PowerShell 7 profile'   ((Test-Path "$docs\PowerShell\Microsoft.PowerShell_profile.ps1") -and (Get-Content "$docs\PowerShell\Microsoft.PowerShell_profile.ps1" -Raw) -match 'dotfiles') 'windows\install.ps1'

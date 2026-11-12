@@ -38,6 +38,9 @@ if (Ask 'Apply Windows preferences (dark mode, file extensions, hidden files)?')
     pwsh -NoProfile -File "$projects\toolnest\windows_preferences\windows_preferences.ps1"
 }
 if (Ask 'Set the wallpaper?') { pwsh -NoProfile -File "$projects\toolnest\set_wallpaper\set_wallpaper.ps1" }
+if (Ask 'Set up remote access (Tailscale, Remote Desktop, SSH, RustDesk)? Asks for admin once.') {
+    pwsh -NoProfile -File "$projects\toolnest\remote_access\remote_access.ps1"
+}
 
 Write-Host "== 5/5 GitHub login"
 gh auth status *> $null
