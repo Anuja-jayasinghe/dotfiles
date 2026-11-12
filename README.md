@@ -31,11 +31,11 @@ C:\gitprojects\dotfiles\windows\bootstrap.ps1
 
 One folder per tool, so any single config can be shared as a link to its folder or file (for example `terminal/settings.json`) without the rest of the repo. Each folder has a short README on how to use it.
 
-`terminal/` `powershell/` `autohotkey/` `vscode/` `lazygit/` `git/` `ssh/` `agents/` — configs. `packages/` — what gets installed. `windows/` `macos/` — setup scripts (bootstrap, install, doctor). `assets/` — wallpapers. `home/` — chezmoi hooks. Utility scripts live in the toolnest repo, not here.
+`terminal/` `powershell/` `autohotkey/` `vscode/` `lazygit/` `git/` `ssh/` `agents/` — configs. `bitwarden/` — password manager setup notes. `packages/` — what gets installed. `windows/` `macos/` — setup scripts (bootstrap, install, doctor). `assets/` — wallpapers. `home/` — chezmoi hooks. Utility scripts live in the toolnest repo, not here.
 
 ## Status
 
-- Done: Windows terminal, PowerShell profile, Git, lazygit, VS Code, agent instructions + skills, SSH aliases, package lists, doctor, chezmoi hooks.
+- Done: Windows terminal, PowerShell profile, Git, lazygit, VS Code, agent instructions + skills, SSH aliases, package lists, doctor, chezmoi hooks, Bitwarden (`bitwarden/`).
 - Phase 4: T3 Code installed (`t3code/`), wallpaper collection in `assets/wallpapers/`. The preferences, wallpaper and WSL scripts moved to toolnest (`just windows-preferences`, `just wallpaper`, `just wsl-setup`).
 - Not yet: tracked T3 keybindings/themes, a wallpaper gallery, tmux, Mac-side verification.
 
