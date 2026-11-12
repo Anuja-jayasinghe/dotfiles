@@ -22,3 +22,7 @@ Open a new terminal tab afterwards. The script installs packages with winget, th
 | `clone user/repo` | clone into `C:\gitprojects` and cd into it |
 
 Editing the profile or theme in the repo takes effect in new shells; commit and push to keep it.
+
+## Remote access
+
+To reach this PC from other devices (Remote Desktop, SSH and RustDesk over Tailscale), run `just remote-access` in toolnest; the bootstrap offers it as an optional step. Afterwards: sign in to Tailscale and disable key expiry for the PC in the Tailscale admin page, add each client's SSH key with `just remote-access -AddKey "ssh-ed25519 ..."`, and set RustDesk's permanent password and 2FA in its settings (keep the password in Bitwarden).
