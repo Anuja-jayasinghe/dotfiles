@@ -47,7 +47,7 @@ if (Test-Path "$env:ProgramFiles\NAPS2\NAPS2.exe") {
     Write-Host "NAPS2 (scanner)"
     Check 'NAPS2 scan profiles match repo' ((Get-FileHash "$env:APPDATA\NAPS2\profiles.xml" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\naps2\profiles.xml").Hash) 'windows\install.ps1 (or copy a changed profiles.xml back to naps2\)'
     Check 'NAPS2 English OCR data' (Test-Path "$env:APPDATA\NAPS2\components\tesseract4\fast\eng.traineddata") 'windows\install.ps1'
-    Check 'HP Scanjet 200 driver installed' (-not (Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue | Where-Object { $_.InstanceId -like 'USB\VID_03F0&PID_1C05*' -and $_.Status -ne 'OK' })) 'see naps2\README.md (scanner driver)'
+    Check 'HP Scanjet 200 driver installed' (-not (Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue | Where-Object { $_.InstanceId -like 'USB\VID_03F0&PID_1C05*' -and $_.Status -ne 'OK' })) 'install naps2\driver\*.cab, see naps2\README.md (scanner driver)'
 }
 
 Write-Host "Accounts and keys (manual)"
