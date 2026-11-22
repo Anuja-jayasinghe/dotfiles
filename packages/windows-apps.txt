@@ -8,3 +8,4 @@ Valve.Steam
 Google.Chrome
 Spotify.Spotify
 RARLab.WinRAR
+Cyanfish.NAPS2

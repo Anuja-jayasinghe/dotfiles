@@ -43,6 +43,13 @@ Check '~/.ssh/config'         (Test-Path "$HOME\.ssh\config")
 Check 'Bitwarden desktop app' ([bool](Get-ItemProperty 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*', 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*' -ErrorAction SilentlyContinue | Where-Object DisplayName -like 'Bitwarden*')) 'windows\install.ps1'
 Check 'Bitwarden Chrome extension' ([bool](Get-ChildItem "$env:LOCALAPPDATA\Google\Chrome\User Data\*\Extensions\nngceckbapebfimnlniiiahkandclblb" -Directory -ErrorAction SilentlyContinue)) 'windows\install.ps1 opens its Web Store page'
 
+if (Test-Path "$env:ProgramFiles\NAPS2\NAPS2.exe") {
+    Write-Host "NAPS2 (scanner)"
+    Check 'NAPS2 scan profiles match repo' ((Get-FileHash "$env:APPDATA\NAPS2\profiles.xml" -ErrorAction SilentlyContinue).Hash -eq (Get-FileHash "$root\naps2\profiles.xml").Hash) 'windows\install.ps1 (or copy a changed profiles.xml back to naps2\)'
+    Check 'NAPS2 English OCR data' (Test-Path "$env:APPDATA\NAPS2\components\tesseract4\fast\eng.traineddata") 'windows\install.ps1'
+    Check 'HP Scanjet 200 driver installed' (-not (Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue | Where-Object { $_.InstanceId -like 'USB\VID_03F0&PID_1C05*' -and $_.Status -ne 'OK' })) 'see naps2\README.md (scanner driver)'
+}
+
 Write-Host "Accounts and keys (manual)"
 gh auth status *> $null; Check 'gh logged in' ($LASTEXITCODE -eq 0) 'gh auth login'
 Check 'SSH key id_ed25519'     (Test-Path "$HOME\.ssh\id_ed25519") 'ssh-keygen -t ed25519 (optional; HTTPS + credential manager works without it)'

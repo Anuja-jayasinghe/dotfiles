@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Merged into %APPDATA%\NAPS2\config.xml by windows\install.ps1: each element here replaces the one of the same
+     name there, everything else (window positions, first-run date) is kept. {SCANS} becomes Documents\Scans. -->
+<UserConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PdfSettings>
+    <DefaultFileName>{SCANS}\Scan_$(YYYY)-$(MM)-$(DD)_$(hh)$(mm).pdf</DefaultFileName>
+    <SkipSavePrompt>false</SkipSavePrompt>
+    <SinglePagePdfs>false</SinglePagePdfs>
+  </PdfSettings>
+  <RememberPdfSettings>true</RememberPdfSettings>
+  <ImageSettings>
+    <DefaultFileName>{SCANS}\Scan_$(YYYY)-$(MM)-$(DD)_$(hh)$(mm).jpg</DefaultFileName>
+    <SkipSavePrompt>false</SkipSavePrompt>
+    <JpegQuality>92</JpegQuality>
+  </ImageSettings>
+  <RememberImageSettings>true</RememberImageSettings>
+  <EnableOcr>true</EnableOcr>
+  <OcrLanguageCode>eng</OcrLanguageCode>
+  <OcrMode>Best</OcrMode>
+  <OcrAfterScanning>true</OcrAfterScanning>
+  <ShowProfilesToolbar>true</ShowProfilesToolbar>
+</UserConfig>
