@@ -104,6 +104,40 @@ if ((Test-Path $chrome) -and -not (Get-ChildItem "$env:LOCALAPPDATA\Google\Chrom
     "bitwarden -> opened the Chrome extension page; click Add to Chrome (then see bitwarden\README.md)"
 }
 
+# NAPS2 (scanner app, installed with -Apps): scan profiles, save/OCR settings merged into its config, English OCR data.
+# Skipped while NAPS2 is open, because it rewrites its config when it closes.
+$naps = "$env:APPDATA\NAPS2"
+if (Test-Path "$env:ProgramFiles\NAPS2\NAPS2.exe") {
+    if (Get-Process NAPS2 -ErrorAction SilentlyContinue) { "naps2 -> skipped: close NAPS2 and re-run" }
+    else {
+        New-Item -ItemType Directory -Force $naps | Out-Null
+        if ((Test-Path "$naps\profiles.xml") -and -not (Test-Path "$naps\profiles.xml.bak")) { Copy-Item "$naps\profiles.xml" "$naps\profiles.xml.bak" }
+        Copy-Item "$root\naps2\profiles.xml" "$naps\profiles.xml" -Force
+        $scans = Join-Path $docs 'Scans'
+        New-Item -ItemType Directory -Force $scans | Out-Null
+        $cfgPath = "$naps\config.xml"
+        $cfg = New-Object xml
+        if (Test-Path $cfgPath) { $cfg.Load($cfgPath) }
+        else { $cfg.LoadXml('<?xml version="1.0" encoding="utf-8"?><UserConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />') }
+        $src = New-Object xml
+        $src.LoadXml((Get-Content "$root\naps2\settings.xml" -Raw).Replace('{SCANS}', $scans))
+        foreach ($el in @($src.DocumentElement.ChildNodes | Where-Object NodeType -eq 'Element')) {
+            $new = $cfg.ImportNode($el, $true)
+            $old = $cfg.DocumentElement[$el.Name]
+            if ($old) { [void]$cfg.DocumentElement.ReplaceChild($new, $old) } else { [void]$cfg.DocumentElement.AppendChild($new) }
+        }
+        $cfg.Save($cfgPath)
+        $tess = "$naps\components\tesseract4"
+        if (-not (Test-Path "$tess\fast\eng.traineddata")) {
+            $zip = Join-Path ([IO.Path]::GetTempPath()) 'naps2-eng.traineddata.zip'
+            Invoke-WebRequest 'https://github.com/cyanfish/naps2-components/releases/download/tesseract-4.0.0b4/eng.traineddata.zip' -OutFile $zip -UseBasicParsing
+            if ((Get-FileHash $zip -Algorithm SHA256).Hash -ne '9D167994617C5FD827BF6B31F298E69CD05E6D30B9965715E78191DF5606389E') { throw 'NAPS2 OCR data download failed its hash check' }
+            Expand-Archive $zip $tess -Force; Remove-Item $zip
+        }
+        "naps2 -> $naps (scans save to $scans)"
+    }
+}
+
 # SSH aliases (never overwrites an existing config; no keys are managed here)
 New-Item -ItemType Directory -Force "$HOME\.ssh" | Out-Null
 if (-not (Test-Path "$HOME\.ssh\config")) { Copy-Item "$root\ssh\config" "$HOME\.ssh\config"; "ssh -> $HOME\.ssh\config" }

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfScanProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ScanProfile>
+    <Version>2</Version>
+    <Device>
+      <ID>{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}\0000</ID>
+      <Name>HP Scanjet 200</Name>
+      <IconUri xsi:nil="true" />
+      <ConnectionUri xsi:nil="true" />
+    </Device>
+    <Caps xsi:nil="true" />
+    <DriverName>wia</DriverName>
+    <DisplayName>Color documents</DisplayName>
+    <IconID>0</IconID>
+    <MaxQuality>false</MaxQuality>
+    <IsDefault>true</IsDefault>
+    <UseNativeUI>false</UseNativeUI>
+    <AfterScanScale>OneToOne</AfterScanScale>
+    <Brightness>0</Brightness>
+    <Contrast>0</Contrast>
+    <BitDepth>C24Bit</BitDepth>
+    <PageAlign>Left</PageAlign>
+    <PageSize>A4</PageSize>
+    <CustomPageSizeName xsi:nil="true" />
+    <CustomPageSize xsi:nil="true" />
+    <Resolution>Dpi300</Resolution>
+    <PaperSource>Glass</PaperSource>
+    <EnableAutoSave>false</EnableAutoSave>
+    <AutoSaveSettings xsi:nil="true" />
+    <Quality>80</Quality>
+    <AutoDeskew>false</AutoDeskew>
+    <AutoCrop>false</AutoCrop>
+    <DocumentCorrection>false</DocumentCorrection>
+    <RotateDegrees>0</RotateDegrees>
+    <BrightnessContrastAfterScan>false</BrightnessContrastAfterScan>
+    <ForcePageSize>false</ForcePageSize>
+    <ForcePageSizeCrop>false</ForcePageSizeCrop>
+    <TwainImpl>Default</TwainImpl>
+    <TwainProgress>false</TwainProgress>
+    <AppleImpl>Default</AppleImpl>
+    <ExcludeBlankPages>false</ExcludeBlankPages>
+    <BlankPageWhiteThreshold>70</BlankPageWhiteThreshold>
+    <BlankPageCoverageThreshold>15</BlankPageCoverageThreshold>
+    <WiaOffsetWidth>false</WiaOffsetWidth>
+    <WiaRetryOnFailure>false</WiaRetryOnFailure>
+    <WiaDelayBetweenScans>false</WiaDelayBetweenScans>
+    <WiaDelayBetweenScansSeconds>2</WiaDelayBetweenScansSeconds>
+    <WiaVersion>Default</WiaVersion>
+    <FlipDuplexedPages>false</FlipDuplexedPages>
+    <KeyValueOptions xsi:nil="true" />
+  </ScanProfile>
+  <ScanProfile>
+    <Version>2</Version>
+    <Device>
+      <ID>{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}\0000</ID>
+      <Name>HP Scanjet 200</Name>
+      <IconUri xsi:nil="true" />
+      <ConnectionUri xsi:nil="true" />
+    </Device>
+    <Caps xsi:nil="true" />
+    <DriverName>wia</DriverName>
+    <DisplayName>Photos</DisplayName>
+    <IconID>0</IconID>
+    <MaxQuality>true</MaxQuality>
+    <IsDefault>false</IsDefault>
+    <UseNativeUI>false</UseNativeUI>
+    <AfterScanScale>OneToOne</AfterScanScale>
+    <Brightness>0</Brightness>
+    <Contrast>0</Contrast>
+    <BitDepth>C24Bit</BitDepth>
+    <PageAlign>Left</PageAlign>
+    <PageSize>Custom</PageSize>
+    <CustomPageSizeName>Full scan bed</CustomPageSizeName>
+    <CustomPageSize>
+      <Width>216</Width>
+      <Height>297</Height>
+      <Unit>Millimetre</Unit>
+    </CustomPageSize>
+    <Resolution>Dpi600</Resolution>
+    <PaperSource>Glass</PaperSource>
+    <EnableAutoSave>false</EnableAutoSave>
+    <AutoSaveSettings xsi:nil="true" />
+    <Quality>95</Quality>
+    <AutoDeskew>false</AutoDeskew>
+    <AutoCrop>false</AutoCrop>
+    <DocumentCorrection>false</DocumentCorrection>
+    <RotateDegrees>0</RotateDegrees>
+    <BrightnessContrastAfterScan>false</BrightnessContrastAfterScan>
+    <ForcePageSize>false</ForcePageSize>
+    <ForcePageSizeCrop>false</ForcePageSizeCrop>
+    <TwainImpl>Default</TwainImpl>
+    <TwainProgress>false</TwainProgress>
+    <AppleImpl>Default</AppleImpl>
+    <ExcludeBlankPages>false</ExcludeBlankPages>
+    <BlankPageWhiteThreshold>70</BlankPageWhiteThreshold>
+    <BlankPageCoverageThreshold>15</BlankPageCoverageThreshold>
+    <WiaOffsetWidth>false</WiaOffsetWidth>
+    <WiaRetryOnFailure>false</WiaRetryOnFailure>
+    <WiaDelayBetweenScans>false</WiaDelayBetweenScans>
+    <WiaDelayBetweenScansSeconds>2</WiaDelayBetweenScansSeconds>
+    <WiaVersion>Default</WiaVersion>
+    <FlipDuplexedPages>false</FlipDuplexedPages>
+    <KeyValueOptions xsi:nil="true" />
+  </ScanProfile>
+  <ScanProfile>
+    <Version>2</Version>
+    <Device>
+      <ID>{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}\0000</ID>
+      <Name>HP Scanjet 200</Name>
+      <IconUri xsi:nil="true" />
+      <ConnectionUri xsi:nil="true" />
+    </Device>
+    <Caps xsi:nil="true" />
+    <DriverName>wia</DriverName>
+    <DisplayName>Quick B&amp;W</DisplayName>
+    <IconID>0</IconID>
+    <MaxQuality>false</MaxQuality>
+    <IsDefault>false</IsDefault>
+    <UseNativeUI>false</UseNativeUI>
+    <AfterScanScale>OneToOne</AfterScanScale>
+    <Brightness>0</Brightness>
+    <Contrast>0</Contrast>
+    <BitDepth>BlackWhite</BitDepth>
+    <PageAlign>Left</PageAlign>
+    <PageSize>A4</PageSize>
+    <CustomPageSizeName xsi:nil="true" />
+    <CustomPageSize xsi:nil="true" />
+    <Resolution>Dpi200</Resolution>
+    <PaperSource>Glass</PaperSource>
+    <EnableAutoSave>false</EnableAutoSave>
+    <AutoSaveSettings xsi:nil="true" />
+    <Quality>75</Quality>
+    <AutoDeskew>false</AutoDeskew>
+    <AutoCrop>false</AutoCrop>
+    <DocumentCorrection>false</DocumentCorrection>
+    <RotateDegrees>0</RotateDegrees>
+    <BrightnessContrastAfterScan>false</BrightnessContrastAfterScan>
+    <ForcePageSize>false</ForcePageSize>
+    <ForcePageSizeCrop>false</ForcePageSizeCrop>
+    <TwainImpl>Default</TwainImpl>
+    <TwainProgress>false</TwainProgress>
+    <AppleImpl>Default</AppleImpl>
+    <ExcludeBlankPages>false</ExcludeBlankPages>
+    <BlankPageWhiteThreshold>70</BlankPageWhiteThreshold>
+    <BlankPageCoverageThreshold>15</BlankPageCoverageThreshold>
+    <WiaOffsetWidth>false</WiaOffsetWidth>
+    <WiaRetryOnFailure>false</WiaRetryOnFailure>
+    <WiaDelayBetweenScans>false</WiaDelayBetweenScans>
+    <WiaDelayBetweenScansSeconds>2</WiaDelayBetweenScansSeconds>
+    <WiaVersion>Default</WiaVersion>
+    <FlipDuplexedPages>false</FlipDuplexedPages>
+    <KeyValueOptions xsi:nil="true" />
+  </ScanProfile>
+</ArrayOfScanProfile>

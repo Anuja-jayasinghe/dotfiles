@@ -7,5 +7,6 @@
 # vscode:      {{ include "../vscode/settings.json" | sha256sum }}
 # lazygit:     {{ include "../lazygit/config.yml" | sha256sum }}
 # agents:      {{ include "../agents/AGENTS.md" | sha256sum }}
+# naps2:       {{ include "../naps2/profiles.xml" | sha256sum }} {{ include "../naps2/settings.xml" | sha256sum }}
 & "{{ .chezmoi.workingTree }}\windows\install.ps1" -SkipPackages
 {{- end }}
